@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <property name="LOG_HOME" value="${user.dir}/logs"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+            <level>DEBUG</level>
+        </filter>
+        <!-- encoders are assigned the type ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%mdc{logToken}] - %replace(%msg){'\n', ', '}%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/logTest.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${LOG_HOME}/archive/logTest.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history capped at 3GB total size -->
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%mdc{logToken}] - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Strictly speaking, the level attribute is not necessary since -->
+    <!-- the level of the root level is set to DEBUG by default.       -->
+    <root level="debug">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>

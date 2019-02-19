@@ -1,0 +1,7 @@
+Steps\Steps.class
+Pages\UserPage.class
+Pages\BrowserAbstractPage.class
+Pages\LoginPage.class
+Pages\SearchPage.class
+Steps\Steps$1.class
+Steps\Steps$Browser.class
